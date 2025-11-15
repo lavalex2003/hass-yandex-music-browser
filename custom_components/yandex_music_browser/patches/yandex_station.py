@@ -1,11 +1,9 @@
 import logging
 from typing import Optional, TYPE_CHECKING, Union
 
-from homeassistant.components.media_player import MediaPlayerEntity, SUPPORT_BROWSE_MEDIA
-from homeassistant.components.media_player.const import (
-    MEDIA_TYPE_ALBUM,
-    MEDIA_TYPE_PLAYLIST,
-    MEDIA_TYPE_TRACK,
+from homeassistant.components.media_player import (
+    MediaPlayerEntity, 
+    MediaPlayerEntityFeature
 )
 from homeassistant.core import callback
 from homeassistant.helpers.typing import HomeAssistantType
@@ -28,6 +26,11 @@ if TYPE_CHECKING:
 
 _LOGGER = logging.getLogger(__name__)
 
+# Константы для типов медиа
+MEDIA_TYPE_ALBUM = "album"
+MEDIA_TYPE_PLAYLIST = "playlist"
+MEDIA_TYPE_TRACK = "track"
+
 
 @callback
 def _get_yandex_entities():
@@ -44,7 +47,7 @@ def _get_yandex_entities():
 def _patch_yandex_station_get_attribute(self, attr: str):
     if attr == "supported_features":
         supported_features = object.__getattribute__(self, attr)
-        supported_features |= SUPPORT_BROWSE_MEDIA
+        supported_features |= MediaPlayerEntityFeature.BROWSE_MEDIA
 
         return supported_features
 
