@@ -237,7 +237,7 @@ async def async_setup(hass: HomeAssistantType, config: ConfigType) -> bool:
         hass.async_create_task(
             hass.config_entries.flow.async_init(
                 DOMAIN,
-                context={CONF_SOURCE: SOURCE_IMPORT},
+                context={"source": SOURCE_IMPORT},
                 data={},
             )
         )
